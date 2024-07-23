@@ -1,0 +1,97 @@
+{
+  "name": "copy-path-with-line-number",
+  "displayName": "copy-path-with-line-number",
+  "description": "copy absolute or relative path with current line number or selected lines range",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.91.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "qishan233.copy.relative.path",
+        "title": "Copy Relative Path Only"
+      },
+      {
+        "command": "qishan233.copy.absolute.path",
+        "title": "Copy Absolute Path Only"
+      },
+      {
+        "command": "qishan233.copy.relative.path.line",
+        "title": "Copy Relative Path With Line Number"
+      },
+      {
+        "command": "qishan233.copy.absolute.path.line",
+        "title": "Copy Absolute Path With Line Number"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "submenu": "qishan233.copy.path.with.line",
+          "group": "copy_it@001"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "submenu": "qishan233.copy.path.with.line",
+          "group": "copy_it@001"
+        }
+      ],
+      "editor/context": [
+        {
+          "submenu": "qishan233.copy.path.with.line",
+          "group": "copy_it@001"
+        }
+      ],
+      "qishan233.copy.path.with.line": [
+        {
+          "command": "qishan233.copy.relative.path",
+          "group": "copy_it@1"
+        },
+        {
+          "command": "qishan233.copy.relative.path.line",
+          "group": "copy_it@2"
+        },
+        {
+          "command": "qishan233.copy.absolute.path",
+          "group": "copy_it@3"
+        },
+        {
+          "command": "qishan233.copy.absolute.path.line",
+          "group": "copy_it@4"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "qishan233.copy.path.with.line",
+        "label": "Copy Path With Line Number"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.91.0",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.11.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.5",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.4.0"
+  }
+}
