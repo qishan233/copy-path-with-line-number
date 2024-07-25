@@ -10,20 +10,20 @@ import { CopyCommand } from './core';
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "copy-path-with-line-number" is now active!');
 
-	const relativePath = vscode.commands.registerCommand('qishan233.copy.relative.path', () => {
-		DoCopy(CopyCommand.CopyRelativePath);
+	const relativePath = vscode.commands.registerCommand('qishan233.copy.relative.path', (uri) => {
+		DoCopy(CopyCommand.CopyRelativePath, uri);
 	});
 
-	const relativePathWithLine = vscode.commands.registerCommand('qishan233.copy.relative.path.line', () => {
-		DoCopy(CopyCommand.CopyRelativePathWithLine);
-	});
-	
-	const absolutePath = vscode.commands.registerCommand('qishan233.copy.absolute.path', () => {
-		DoCopy(CopyCommand.CopyAbsolutePath);
+	const relativePathWithLine = vscode.commands.registerCommand('qishan233.copy.relative.path.line', (uri) => {
+		DoCopy(CopyCommand.CopyRelativePathWithLine, uri);
 	});
 
-	const absolutePathWithLine = vscode.commands.registerCommand('qishan233.copy.absolute.path.line', () => {
-		DoCopy(CopyCommand.CopyAbsolutePathWithLine);
+	const absolutePath = vscode.commands.registerCommand('qishan233.copy.absolute.path', (uri) => {
+		DoCopy(CopyCommand.CopyAbsolutePath, uri);
+	});
+
+	const absolutePathWithLine = vscode.commands.registerCommand('qishan233.copy.absolute.path.line', (uri) => {
+		DoCopy(CopyCommand.CopyAbsolutePathWithLine, uri);
 	});
 
 

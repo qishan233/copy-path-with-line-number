@@ -1,10 +1,10 @@
 import { GetContent, CopyCommand } from './core';
 
-import { env, window } from 'vscode';
+import { env, window, Uri, workspace } from 'vscode';
 
 
-function DoCopy(command: CopyCommand) {
-    var content = GetContent(command);
+function DoCopy(command: CopyCommand, uri: Uri) {
+    var content = GetContent(command, uri);
 
     CopyAndShowMessage(content);
 }

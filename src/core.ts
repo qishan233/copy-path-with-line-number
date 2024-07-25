@@ -1,4 +1,4 @@
-import { TextEditor, window, env, workspace } from 'vscode';
+import { Uri, window, workspace } from 'vscode';
 
 
 enum CopyCommand {
@@ -8,16 +8,31 @@ enum CopyCommand {
     CopyAbsolutePathWithLine,
 }
 
-function GetContent(command: CopyCommand): string {
+function GetContent(command: CopyCommand, uri: Uri): string {
     var editor = window.activeTextEditor;
 
     if (!editor) {
-        return "no active editor";
+        // 如果没有打开的编辑器，那么返回 uri 的对应路径
+        switch (command) {
+            case CopyCommand.CopyRelativePath:
+                return workspace.asRelativePath(uri);
+            case CopyCommand.CopyAbsolutePath:
+                return uri.fsPath;
+            default:
+                return "not supported command when no active editor";
+        }
     }
 
     var absolutePath = editor.document.fileName;
+    if (absolutePath !== uri.fsPath) {
+        absolutePath = uri.fsPath;
+    }
+
     var relativePath = workspace.asRelativePath(absolutePath);
     var currentLine = editor.selection.active.line + 1;
+
+
+
 
     console.log(absolutePath, "    ", relativePath, "    ", currentLine);
 
