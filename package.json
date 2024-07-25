@@ -15,19 +15,19 @@
     "commands": [
       {
         "command": "qishan233.copy.relative.path",
-        "title": "Copy Relative Path Only"
+        "title": "%qishan233.copy.relative.path.title%"
       },
       {
         "command": "qishan233.copy.absolute.path",
-        "title": "Copy Absolute Path Only"
+        "title": "%qishan233.copy.absolute.path.title%"
       },
       {
         "command": "qishan233.copy.relative.path.line",
-        "title": "Copy Relative Path With Line Number"
+        "title": "%qishan233.copy.relative.path.line.title%"
       },
       {
         "command": "qishan233.copy.absolute.path.line",
-        "title": "Copy Absolute Path With Line Number"
+        "title": "%qishan233.copy.absolute.path.line.title%"
       }
     ],
     "menus": {
@@ -55,11 +55,11 @@
           "group": "copy_it@1"
         },
         {
-          "command": "qishan233.copy.relative.path.line",
+          "command": "qishan233.copy.absolute.path",
           "group": "copy_it@2"
         },
         {
-          "command": "qishan233.copy.absolute.path",
+          "command": "qishan233.copy.relative.path.line",
           "group": "copy_it@3"
         },
         {
@@ -71,7 +71,7 @@
     "submenus": [
       {
         "id": "qishan233.copy.path.with.line",
-        "label": "Copy Path With Line Number"
+        "label": "%qishan233.copy.path.with.line%"
       }
     ]
   },
