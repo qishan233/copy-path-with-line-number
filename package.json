@@ -33,13 +33,13 @@
     "menus": {
       "explorer/context": [
         {
-          "submenu": "qishan233.copy.path.with.line",
+          "submenu": "qishan233.copy.path",
           "group": "copy_it@001"
         }
       ],
       "editor/title/context": [
         {
-          "submenu": "qishan233.copy.path.with.line",
+          "submenu": "qishan233.copy.path",
           "group": "copy_it@001"
         }
       ],
@@ -66,12 +66,26 @@
           "command": "qishan233.copy.absolute.path.line",
           "group": "copy_it@4"
         }
+      ],
+      "qishan233.copy.path": [
+        {
+          "command": "qishan233.copy.relative.path",
+          "group": "copy_it@1"
+        },
+        {
+          "command": "qishan233.copy.absolute.path",
+          "group": "copy_it@2"
+        }
       ]
     },
     "submenus": [
       {
         "id": "qishan233.copy.path.with.line",
         "label": "%qishan233.copy.path.with.line%"
+      },
+      {
+        "id": "qishan233.copy.path",
+        "label": "%qishan233.copy.path%"
       }
     ]
   },
