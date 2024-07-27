@@ -1,23 +1,24 @@
 # copy-path-with-line-number
 
-This extension provides the ability to copy a file's path and line number in the explorer, tab title and editor context
+This extension provides the ability to copy a file's path and line number in the explorer, tab title and editor context. It also supports Chinese and English.
+
 
 ## Usages
 
 ### Copy Path
 
-![explorer-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/2.gif)
+![explorer-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/explorer-context.gif)
 
-![title-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/3.gif)
+![title-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/title-context.gif)
 
 ### Copy Path With Line Number
 
-![editor-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/1.gif)
+![editor-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/editor-context.gif)
 
 **Enjoy!**
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.1
 
 Add the ability of copying path(relative path and absolute path) with line number

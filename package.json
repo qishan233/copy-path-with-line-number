@@ -3,6 +3,9 @@
   "displayName": "copy-path-with-line-number",
   "description": "copy absolute or relative path with current line number or selected lines range",
   "version": "0.0.1",
+  "icon": "images/icon.png",
+  "publisher": "qishan233",
+  "license": "SEE LICENSE IN LICENSE.md",
   "engines": {
     "vscode": "^1.91.0"
   },
@@ -89,6 +92,12 @@
       }
     ]
   },
+  "pricing": "Free",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qishan233/copy-path-with-line-number.git"
+  },
+  "homepage": "https://github.com/qishan233/copy-path-with-line-number/blob/main/README.md",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
