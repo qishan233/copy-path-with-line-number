@@ -1,7 +1,7 @@
 {
   "name": "copy-path-with-line-number",
   "displayName": "copy-path-with-line-number",
-  "description": "copy absolute or relative path with current line number or selected lines range",
+  "description": "copy absolute or relative path with current line number",
   "version": "0.0.1",
   "icon": "images/icon.png",
   "publisher": "qishan233",
