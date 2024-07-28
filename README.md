@@ -22,6 +22,10 @@ This extension provides the ability to copy a file's path and line number in the
 
 ## Release Notes
 
+### 0.0.2
+
+Add the ability of copying multiple selections line number info in editor context.
+
 ### 0.0.1
 
-Add the ability of copying path(relative path and absolute path) with line number
+Add the ability of copying path(relative path and absolute path) with line number.
