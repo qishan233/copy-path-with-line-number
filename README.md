@@ -2,7 +2,6 @@
 
 This extension provides the ability to copy a file's path and line number in the explorer, tab title and editor context. It also supports Chinese and English.
 
-
 ## Usages
 
 ### Copy Path
@@ -14,6 +13,10 @@ This extension provides the ability to copy a file's path and line number in the
 ### Copy Path With Line Number
 
 ![editor-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/editor-context.gif)
+
+### Copy Selected Lines Range Info
+
+![selected lines range](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/selected-lines-info.gif)
 
 **Enjoy!**
 
