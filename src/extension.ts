@@ -3,8 +3,6 @@ import { DoCopy } from './command';
 import { CopyCommand } from './core';
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "copy-path-with-line-number" is now active!');
-
 	const relativePath = vscode.commands.registerCommand('qishan233.copy.relative.path', (uri) => {
 		DoCopy(CopyCommand.CopyRelativePath, uri);
 	});

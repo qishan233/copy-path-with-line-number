@@ -2,7 +2,7 @@
   "name": "copy-path-with-line-number",
   "displayName": "copy-path-with-line-number",
   "description": "copy absolute or relative path with current line number or selected lines range info in editor context",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "icon": "images/icon.png",
   "publisher": "qishan233",
   "license": "SEE LICENSE IN LICENSE.md",
@@ -11,6 +11,12 @@
   },
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "copy",
+    "relative path",
+    "line number",
+    "file separator"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
@@ -111,7 +117,8 @@
             "comma",
             "space",
             "semicolon"
-          ]
+          ],
+          "description": "%configuration.description.selection.separator%"
         },
         "copyPathWithLineNumber.range.connector": {
           "type": "string",
@@ -127,7 +134,8 @@
           "enumItemLabels": [
             "tilde",
             "dash"
-          ]
+          ],
+          "description": "%configuration.description.range.connector%"
         },
         "copyPathWithLineNumber.path.separator": {
           "type": "string",
@@ -146,12 +154,13 @@
             "system",
             "slash",
             "backslash"
-          ]
+          ],
+          "description": "%configuration.description.path.separator%"
         },
-        "copyPathWithLineNumber.show.message.copied": {
+        "copyPathWithLineNumber.show.message": {
           "type": "boolean",
-          "default": false,
-          "description": "%configuration.copied.show.success%"
+          "default": true,
+          "description": "%configuration.description.copied.show.message%"
         }
       }
     }

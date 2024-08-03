@@ -2,7 +2,11 @@
 
 All notable changes to the "copy-path-with-line-number" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.0.3] - 2024-08-03
+
+### Added
+
+- Add the ability of setting custom file path separator, range connector and selection separator.
 
 ## [0.0.2] - 2024-07-28
 
