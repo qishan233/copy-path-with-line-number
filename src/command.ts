@@ -12,7 +12,13 @@ function DoCopy(command: CopyCommand, uri: Uri) {
 
 const CopyAndShowMessage = (content: string) => {
     env.clipboard.writeText(content);
-    window.showInformationMessage('Copied!');
+
+    var config = workspace.getConfiguration('copyPathWithLineNumber');
+
+    if (config.get('showSuccessMessage') === true) {
+        window.showInformationMessage('copied to clipboard: ' + content);
+    }
+
 };
 
 export {

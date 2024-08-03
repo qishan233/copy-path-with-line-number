@@ -18,19 +18,19 @@
     "commands": [
       {
         "command": "qishan233.copy.relative.path",
-        "title": "%qishan233.copy.relative.path.title%"
+        "title": "%submenu.copy.relative.path.title%"
       },
       {
         "command": "qishan233.copy.absolute.path",
-        "title": "%qishan233.copy.absolute.path.title%"
+        "title": "%submenu.copy.absolute.path.title%"
       },
       {
         "command": "qishan233.copy.relative.path.line",
-        "title": "%qishan233.copy.relative.path.line.title%"
+        "title": "%submenu.copy.relative.path.line.title%"
       },
       {
         "command": "qishan233.copy.absolute.path.line",
-        "title": "%qishan233.copy.absolute.path.line.title%"
+        "title": "%submenu.copy.absolute.path.line.title%"
       }
     ],
     "menus": {
@@ -58,11 +58,11 @@
           "group": "copy_it@1"
         },
         {
-          "command": "qishan233.copy.absolute.path",
+          "command": "qishan233.copy.relative.path.line",
           "group": "copy_it@2"
         },
         {
-          "command": "qishan233.copy.relative.path.line",
+          "command": "qishan233.copy.absolute.path",
           "group": "copy_it@3"
         },
         {
@@ -84,13 +84,59 @@
     "submenus": [
       {
         "id": "qishan233.copy.path.with.line",
-        "label": "%qishan233.copy.path.with.line%"
+        "label": "%menu.copy.path.with.line%"
       },
       {
         "id": "qishan233.copy.path",
-        "label": "%qishan233.copy.path%"
+        "label": "%menu.copy.path%"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Copy Path With Line Number",
+      "properties": {
+        "copyPathWithLineNumber.selection.separator": {
+          "type": "string",
+          "enum": [
+            "comma",
+            "space",
+            "semicolon"
+          ],
+          "default": "comma",
+          "enumDescriptions": [
+            "%configuration.selection.separator.description.comma%",
+            "%configuration.selection.separator.description.space%",
+            "%configuration.selection.separator.description.semicolon%"
+          ],
+          "enumItemLabels": [
+            "comma",
+            "space",
+            "semicolon"
+          ]
+        },
+        "copyPathWithLineNumber.range.connector": {
+          "type": "string",
+          "enum": [
+            "tilde",
+            "dash"
+          ],
+          "default": "tilde",
+          "enumDescriptions": [
+            "%configuration.range.connector.description.tilde%",
+            "%configuration.range.connector.description.dash%"
+          ],
+          "enumItemLabels": [
+            "tilde",
+            "dash"
+          ],
+          "title": "range connector"
+        },
+        "copyPathWithLineNumber.showSuccessMessage": {
+          "type": "boolean",
+          "default": false,
+          "description": "%configuration.copied.show.success%"
+        }
+      }
+    }
   },
   "pricing": "Free",
   "repository": {

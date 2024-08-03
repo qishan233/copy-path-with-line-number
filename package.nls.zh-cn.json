@@ -1,8 +1,14 @@
 {
-    "qishan233.copy.path": "复制路径",
-    "qishan233.copy.path.with.line": "复制路径和行号",
-    "qishan233.copy.relative.path.title": "复制相对路径",
-    "qishan233.copy.absolute.path.title": "复制绝对路径",
-    "qishan233.copy.relative.path.line.title": "复制相对路径和行号",
-    "qishan233.copy.absolute.path.line.title": "复制绝对路径和行号"
+    "menu.copy.path": "复制路径",
+    "menu.copy.path.with.line": "复制路径和行号",
+    "submenu.copy.relative.path.title": "复制相对路径",
+    "submenu.copy.absolute.path.title": "复制绝对路径",
+    "submenu.copy.relative.path.line.title": "复制相对路径和行号",
+    "submenu.copy.absolute.path.line.title": "复制绝对路径和行号",
+    "configuration.copied.show.success": "当复制内容被写入剪贴板后展示消息",
+    "configuration.range.connector.description.dash": "使用连字符('-')作为连接字符",
+    "configuration.range.connector.description.tilde": "使用波浪符('~') 作为连接字符",
+    "configuration.selection.separator.description.comma": "使用逗号(',') 作为分隔符",
+    "configuration.selection.separator.description.space": "使用空格(' ') 作为分隔符",
+    "configuration.selection.separator.description.semicolon": "使用分号(';') 作为分隔符"
 }

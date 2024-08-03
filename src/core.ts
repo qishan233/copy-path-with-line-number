@@ -1,5 +1,7 @@
 import { Uri, window, workspace } from 'vscode';
 
+import path from 'path';
+
 
 enum CopyCommand {
     CopyRelativePath,
@@ -21,7 +23,7 @@ function GetContent(command: CopyCommand, uri: Uri): string {
     var editor = window.activeTextEditor;
 
     var absolutePath: string;
-    var currentLine: number;
+    var lineNumber: number;
     var selectedLines: string;
     var selectionRanges: Range[] = new Array<Range>();
     var isSingleLine = true;
@@ -31,11 +33,11 @@ function GetContent(command: CopyCommand, uri: Uri): string {
     if (!editor) {
         // 如果没有打开的编辑器，那么返回 uri 的对应路径
         absolutePath = uri.fsPath;
-        currentLine = 1;
+        lineNumber = 1;
     } else {
         absolutePath = editor.document.fileName;
         isSingleLine = editor.selections.length === 1 && editor.selections[0].isSingleLine;
-        currentLine = editor.selection.active.line + 1;
+        lineNumber = editor.selection.active.line + 1;
         editor.selections.forEach(selection => {
             selectionRanges.push(new Range(selection.start.line + 1, selection.end.line + 1));
         });
@@ -45,7 +47,7 @@ function GetContent(command: CopyCommand, uri: Uri): string {
     // use uri.fsPath in title context 
     if (absolutePath !== uri.fsPath) {
         absolutePath = uri.fsPath;
-        currentLine = 1;
+        lineNumber = 1;
     }
 
     var relativePath = workspace.asRelativePath(absolutePath);
@@ -53,20 +55,59 @@ function GetContent(command: CopyCommand, uri: Uri): string {
     // there is no item selected, so set currentLine to zero
     var workspaceDir = workspace.getWorkspaceFolder(uri);
     if (workspaceDir && workspaceDir.uri.fsPath === uri.fsPath) {
-        currentLine = 0;
+        lineNumber = 0;
     }
 
 
+
+
     if (isSingleLine) {
-        lineInfo = currentLine;
+        lineInfo = lineNumber;
     } else {
+        var separator = '';
+        var connector = '';
+
+        var config = workspace.getConfiguration('copyPathWithLineNumber');
+
+        var separatorConfig = config.get("selection.separator");
+        switch (separatorConfig) {
+            case "comma":
+                separator = ',';
+                break;
+            case "semicolon":
+                separator = ';';
+                break;
+            case "space":
+                separator = ' ';
+                break;
+            default:
+                separator = ',';
+        }
+
+        var rangeConfig = config.get("range.connector");
+        switch (rangeConfig) {
+            case "tilde":
+                connector = '~';
+                break;
+            case "dash":
+                connector = '-';
+                break;
+            default:
+                connector = '~';
+        }
+
+
+        console.log('path separator:', path.sep);
+
+        console.log('separator:', separator);
+
         selectedLines = selectionRanges.map(range => {
             if (range.start === range.end) {
                 return range.start;
             }
 
-            return `${range.start}~${range.end}`;
-        }).join(", ");
+            return `${range.start}${connector}${range.end}`;
+        }).join(separator + ' ');
         lineInfo = selectedLines;
     }
 

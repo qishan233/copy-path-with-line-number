@@ -1,8 +1,14 @@
 {
-    "qishan233.copy.path": "Copy Path",
-    "qishan233.copy.path.with.line": "Copy Path With Line Number",
-    "qishan233.copy.relative.path.title": "Copy Relative Path Only",
-    "qishan233.copy.absolute.path.title": "Copy Absolute Path Only",
-    "qishan233.copy.relative.path.line.title": "Copy Relative Path and Line Number",
-    "qishan233.copy.absolute.path.line.title": "Copy Absolute Path and Line Number"
+    "menu.copy.path": "Copy Path",
+    "menu.copy.path.with.line": "Copy Path With Line Number",
+    "submenu.copy.relative.path.title": "Copy Relative Path Only",
+    "submenu.copy.absolute.path.title": "Copy Absolute Path Only",
+    "submenu.copy.relative.path.line.title": "Copy Relative Path and Line Number",
+    "submenu.copy.absolute.path.line.title": "Copy Absolute Path and Line Number",
+    "configuration.copied.show.success": "show message after content is written to clipboard",
+    "configuration.range.connector.description.dash": "use hyphen('-') as connector",
+    "configuration.range.connector.description.tilde": "use tilde('~') as connector",
+    "configuration.selection.separator.description.comma": "use comma(',') as separator",
+    "configuration.selection.separator.description.space": "use blank(' ') as separator",
+    "configuration.selection.separator.description.semicolon": "use semicolon(';') as separator"
 }
