@@ -10,5 +10,9 @@
     "configuration.range.connector.description.tilde": "使用波浪符('~') 作为连接字符",
     "configuration.selection.separator.description.comma": "使用逗号(',') 作为分隔符",
     "configuration.selection.separator.description.space": "使用空格(' ') 作为分隔符",
-    "configuration.selection.separator.description.semicolon": "使用分号(';') 作为分隔符"
+    "configuration.selection.separator.description.semicolon": "使用分号(';') 作为分隔符",
+    "configuration.title": "复制路径和行号",
+    "configuration.range.path.separator.system": "使用系统默认分隔符",
+    "configuration.range.path.separator.slash": "使用斜杠('/') 作为路径分隔符",
+    "configuration.range.path.separator.backslash": "使用反斜杠('\\') 作为路径分隔符"
 }

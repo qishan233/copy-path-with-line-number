@@ -15,7 +15,7 @@ const CopyAndShowMessage = (content: string) => {
 
     var config = workspace.getConfiguration('copyPathWithLineNumber');
 
-    if (config.get('showSuccessMessage') === true) {
+    if (config.get('show.message.copied') === true) {
         window.showInformationMessage('copied to clipboard: ' + content);
     }
 

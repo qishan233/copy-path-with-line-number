@@ -58,7 +58,24 @@ function GetContent(command: CopyCommand, uri: Uri): string {
         lineNumber = 0;
     }
 
+    var config = workspace.getConfiguration('copyPathWithLineNumber');
+    var pathSeparator = config.get("path.separator");
 
+    var targetSep = '';
+    switch (pathSeparator) {
+        case "slash":
+            targetSep = '/';
+            break;
+        case "backslash":
+            targetSep = '\\';
+            break;
+        default:
+    }
+
+    if (targetSep !== '') {
+        relativePath = relativePath.replace(`/${path.sep}/g`, targetSep);
+        relativePath = relativePath.replace(`/${path.sep}/g`, targetSep);
+    }
 
 
     if (isSingleLine) {
@@ -66,8 +83,6 @@ function GetContent(command: CopyCommand, uri: Uri): string {
     } else {
         var separator = '';
         var connector = '';
-
-        var config = workspace.getConfiguration('copyPathWithLineNumber');
 
         var separatorConfig = config.get("selection.separator");
         switch (separatorConfig) {
@@ -96,16 +111,10 @@ function GetContent(command: CopyCommand, uri: Uri): string {
                 connector = '~';
         }
 
-
-        console.log('path separator:', path.sep);
-
-        console.log('separator:', separator);
-
         selectedLines = selectionRanges.map(range => {
             if (range.start === range.end) {
                 return range.start;
             }
-
             return `${range.start}${connector}${range.end}`;
         }).join(separator + ' ');
         lineInfo = selectedLines;

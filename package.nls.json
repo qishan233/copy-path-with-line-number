@@ -10,5 +10,9 @@
     "configuration.range.connector.description.tilde": "use tilde('~') as connector",
     "configuration.selection.separator.description.comma": "use comma(',') as separator",
     "configuration.selection.separator.description.space": "use blank(' ') as separator",
-    "configuration.selection.separator.description.semicolon": "use semicolon(';') as separator"
+    "configuration.selection.separator.description.semicolon": "use semicolon(';') as separator",
+    "configuration.title": "Copy Path With Line Number",
+    "configuration.range.path.separator.system": "use system separator",
+    "configuration.range.path.separator.slash": "use slash('/') as path separator",
+    "configuration.range.path.separator.backslash": "use backslash('\\') as path separator"
 }

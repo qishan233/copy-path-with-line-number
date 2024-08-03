@@ -92,7 +92,7 @@
       }
     ],
     "configuration": {
-      "title": "Copy Path With Line Number",
+      "title": "%configuration.title%",
       "properties": {
         "copyPathWithLineNumber.selection.separator": {
           "type": "string",
@@ -127,10 +127,28 @@
           "enumItemLabels": [
             "tilde",
             "dash"
-          ],
-          "title": "range connector"
+          ]
         },
-        "copyPathWithLineNumber.showSuccessMessage": {
+        "copyPathWithLineNumber.path.separator": {
+          "type": "string",
+          "enum": [
+            "system",
+            "slash",
+            "backslash"
+          ],
+          "default": "system",
+          "enumDescriptions": [
+            "%configuration.range.path.separator.system%",
+            "%configuration.range.path.separator.slash%",
+            "%configuration.range.path.separator.backslash%"
+          ],
+          "enumItemLabels": [
+            "system",
+            "slash",
+            "backslash"
+          ]
+        },
+        "copyPathWithLineNumber.show.message.copied": {
           "type": "boolean",
           "default": false,
           "description": "%configuration.copied.show.success%"
