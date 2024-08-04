@@ -1,5 +1,5 @@
 {
-    "menu.copy.path": "Copy Path",
+    "menu.copy.path": "Copy Path(Custom version)",
     "menu.copy.path.with.line": "Copy Path With Line Number",
     "submenu.copy.relative.path.title": "Copy Relative Path Only",
     "submenu.copy.absolute.path.title": "Copy Absolute Path Only",

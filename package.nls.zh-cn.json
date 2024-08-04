@@ -1,5 +1,5 @@
 {
-    "menu.copy.path": "复制路径(高级版)",
+    "menu.copy.path": "复制路径(自定义版)",
     "menu.copy.path.with.line": "复制路径和行号",
     "submenu.copy.relative.path.title": "复制相对路径",
     "submenu.copy.absolute.path.title": "复制绝对路径",
