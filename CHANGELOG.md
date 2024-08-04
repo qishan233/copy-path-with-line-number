@@ -2,6 +2,12 @@
 
 All notable changes to the "copy-path-with-line-number" extension will be documented in this file.
 
+## [0.0.4] - 2024-08-04
+
+### Fixed
+
+- Fixed an issue that configuration was not used when copying absolute path.
+
 ## [0.0.3] - 2024-08-03
 
 ### Added

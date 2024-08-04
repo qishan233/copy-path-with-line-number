@@ -20,7 +20,6 @@ It also supports Chinese and English.
 
 ![selected lines range](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/selected-lines-info.gif)
 
-
 ### Settings
 
 ![settings](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/settings.gif)
@@ -28,6 +27,10 @@ It also supports Chinese and English.
 **Enjoy!**
 
 ## Release Notes
+
+### 0.0.4
+
+Fixed an issue that configuration was not used when copying absolute path.
 
 ### 0.0.3
 
