@@ -1,6 +1,6 @@
 import { Uri, window, workspace } from 'vscode';
-
-import path from 'path';
+import { UriResolverFactory, LineInfoMakerFactory, IUriResolver, ILineInfoMaker } from './base';
+import { Decorator, ConfigurablePathDecorator, ConfigurableLineNumberDecorator } from './decorator';
 
 
 enum CopyCommand {
@@ -10,129 +10,56 @@ enum CopyCommand {
     CopyAbsolutePathWithLine,
 }
 
-class Range {
-    start: number;
-    end: number;
-    constructor(start: number, end: number) {
-        this.start = start;
-        this.end = end;
+interface IContentMaker {
+    GetContent(uri: Uri): string;
+}
+
+class ContentMaker implements IContentMaker {
+    uriResolver: IUriResolver;
+    lineInfoMaker: ILineInfoMaker | null;
+    decorators: Decorator[] = [];
+    constructor(absolutePath: boolean, needLineInfo: boolean) {
+        this.uriResolver = UriResolverFactory.CreateUriResolver(absolutePath);
+
+        if (needLineInfo) {
+            this.lineInfoMaker = LineInfoMakerFactory.CreateLineInfoMaker();
+        } else {
+            this.lineInfoMaker = null;
+        }
+
+        this.decorators.push(new ConfigurablePathDecorator(), new ConfigurableLineNumberDecorator());
+
+    }
+    GetContent(uri: Uri): string {
+        var res = this.uriResolver.GetPath(uri);
+
+        if (this.lineInfoMaker !== null) {
+            res += ":" + this.lineInfoMaker.GetLineInfo();
+        }
+
+        for (let decorator of this.decorators) {
+            res = decorator.Decorate(res);
+        }
+
+        return res;
     }
 }
 
+const Command2ContentMaker = new Map<CopyCommand, IContentMaker>([
+    [CopyCommand.CopyRelativePath, new ContentMaker(false, false)],
+    [CopyCommand.CopyAbsolutePath, new ContentMaker(true, false)],
+    [CopyCommand.CopyAbsolutePathWithLine, new ContentMaker(true, true)],
+    [CopyCommand.CopyRelativePathWithLine, new ContentMaker(false, true)],
+]);
+
+
 function GetContent(command: CopyCommand, uri: Uri): string {
-    var editor = window.activeTextEditor;
-
-    var absolutePath: string;
-    var lineNumber: number;
-    var selectedLines: string;
-    var selectionRanges: Range[] = new Array<Range>();
-    var isSingleLine = true;
-
-    var lineInfo: string | number;
-
-    if (!editor) {
-        // 如果没有打开的编辑器，那么返回 uri 的对应路径
-        absolutePath = uri.fsPath;
-        lineNumber = 1;
-    } else {
-        absolutePath = editor.document.fileName;
-        isSingleLine = editor.selections.length === 1 && editor.selections[0].isSingleLine;
-        lineNumber = editor.selection.active.line + 1;
-        editor.selections.forEach(selection => {
-            selectionRanges.push(new Range(selection.start.line + 1, selection.end.line + 1));
-        });
+    var contentMaker = Command2ContentMaker.get(command);
+    if (contentMaker === undefined) {
+        return "not supported command";
     }
 
-
-    // use uri.fsPath in title context 
-    if (absolutePath !== uri.fsPath) {
-        absolutePath = uri.fsPath;
-        lineNumber = 1;
-    }
-
-    var relativePath = workspace.asRelativePath(absolutePath);
-
-    // there is no item selected, so set currentLine to zero
-    var workspaceDir = workspace.getWorkspaceFolder(uri);
-    if (workspaceDir && workspaceDir.uri.fsPath === uri.fsPath) {
-        lineNumber = 0;
-    }
-
-    var config = workspace.getConfiguration('copyPathWithLineNumber');
-    var pathSeparator = config.get("path.separator");
-
-    var targetSep = '';
-    switch (pathSeparator) {
-        case "slash":
-            targetSep = '/';
-            break;
-        case "backslash":
-            targetSep = '\\';
-            break;
-        default:
-    }
-
-    if (targetSep !== '') {
-        relativePath = relativePath.replace(`/${path.sep}/g`, targetSep);
-        relativePath = relativePath.replace(`/${path.sep}/g`, targetSep);
-    }
-
-
-    if (isSingleLine) {
-        lineInfo = lineNumber;
-    } else {
-        var separator = '';
-        var connector = '';
-
-        var separatorConfig = config.get("selection.separator");
-        switch (separatorConfig) {
-            case "comma":
-                separator = ',';
-                break;
-            case "semicolon":
-                separator = ';';
-                break;
-            case "space":
-                separator = ' ';
-                break;
-            default:
-                separator = ',';
-        }
-
-        var rangeConfig = config.get("range.connector");
-        switch (rangeConfig) {
-            case "tilde":
-                connector = '~';
-                break;
-            case "dash":
-                connector = '-';
-                break;
-            default:
-                connector = '~';
-        }
-
-        selectedLines = selectionRanges.map(range => {
-            if (range.start === range.end) {
-                return range.start;
-            }
-            return `${range.start}${connector}${range.end}`;
-        }).join(separator + ' ');
-        lineInfo = selectedLines;
-    }
-
-
-    switch (command) {
-        case CopyCommand.CopyRelativePath:
-            return relativePath;
-        case CopyCommand.CopyAbsolutePath:
-            return absolutePath;
-        case CopyCommand.CopyRelativePathWithLine:
-            return `${relativePath}:${lineInfo}`;
-        case CopyCommand.CopyAbsolutePathWithLine:
-            return `${absolutePath}:${lineInfo}`;
-        default:
-            return "not supported command";
-    }
+    return contentMaker.GetContent(uri);
 }
 
 export {
