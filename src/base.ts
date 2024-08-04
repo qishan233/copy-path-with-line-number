@@ -8,11 +8,7 @@ interface IUriResolver {
 
 class RelativeUriResolver implements IUriResolver {
     GetPath(uri: Uri): string {
-        var p = workspace.asRelativePath(uri.fsPath);
-        console.log("before replace", p);
-        p = p.replace(/\//g, path.sep);
-        console.log("after replace", p);
-        return p;
+        return workspace.asRelativePath(uri.fsPath).replace(/\//g, path.sep);;
     }
 }
 
