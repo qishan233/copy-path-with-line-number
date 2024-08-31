@@ -1,8 +1,10 @@
-const DefaultSeparator = ',';
-const DefaultConnector = '~';
+const DefaultRangeSeparator = ',';
+const DefaultRangeConnector = '~';
+const DefaultPathSeparator = '/';
 
 
 export {
-    DefaultSeparator,
-    DefaultConnector
+    DefaultRangeSeparator,
+    DefaultRangeConnector,
+    DefaultPathSeparator
 };

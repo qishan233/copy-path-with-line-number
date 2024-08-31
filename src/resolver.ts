@@ -1,5 +1,8 @@
 import { Uri, window, workspace } from "vscode";
-import { DefaultConnector, DefaultSeparator } from "./const";
+import {
+    ISymbolStrategy,
+    GetSymbolStrategy,
+} from './symbol_strategy';
 import path from "path";
 
 interface IUriResolver {
@@ -7,14 +10,32 @@ interface IUriResolver {
 }
 
 class RelativeUriResolver implements IUriResolver {
+    pathSeparatorStrategy: ISymbolStrategy;
+    constructor() {
+        this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
+    }
     GetPath(uri: Uri): string {
-        return workspace.asRelativePath(uri.fsPath).replace(/\//g, path.sep);;
+        console.log("相对路径信息：" + workspace.asRelativePath(uri.fsPath));
+
+        return workspace.asRelativePath(uri.fsPath).replace(/\//g, this.pathSeparatorStrategy.GetSymbol());
     }
 }
 
 class AbsoluteUriResolver implements IUriResolver {
+    pathSeparatorStrategy: ISymbolStrategy;
+    constructor() {
+        this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
+    }
     GetPath(uri: Uri): string {
-        return uri.fsPath;
+        var content = uri.fsPath;
+
+        var targetSep = this.pathSeparatorStrategy.GetSymbol();
+
+        console.log("绝对路径信息：" + uri.fsPath);
+
+        content = content.replace(new RegExp(path.sep.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), targetSep);
+
+        return content;
     }
 }
 
@@ -34,7 +55,6 @@ class Range {
 }
 
 
-
 interface ILineInfoMaker {
     GetLineInfo(): string;
 }
@@ -46,6 +66,15 @@ class LineInfoMakerFactory {
 }
 
 class LineInfoMaker implements ILineInfoMaker {
+    rangeConnectorStrategy: ISymbolStrategy;
+    rangeSeparatorStrategy: ISymbolStrategy;
+
+    constructor() {
+        this.rangeConnectorStrategy = GetSymbolStrategy().GetRangeConnectorStrategy();
+        this.rangeSeparatorStrategy = GetSymbolStrategy().GetRangeSeparatorStrategy();
+
+    }
+
     GetLineInfo(): string {
         var editor = window.activeTextEditor;
         if (!editor) {
@@ -66,12 +95,19 @@ class LineInfoMaker implements ILineInfoMaker {
             selectionRanges.push(new Range(selection.start.line + 1, selection.end.line + 1));
         });
 
+        var rangeConnector = this.rangeConnectorStrategy.GetSymbol();
+        var rangeSeparator = this.rangeSeparatorStrategy.GetSymbol();
+
+        if (rangeSeparator !== ' ') {
+            rangeSeparator += ' ';
+        }
+
         selectedLines = selectionRanges.map(range => {
             if (range.start === range.end) {
                 return range.start;
             }
-            return `${range.start}${DefaultConnector}${range.end}`;
-        }).join(DefaultSeparator + ' ');
+            return `${range.start}${rangeConnector}${range.end}`;
+        }).join(rangeSeparator);
 
         return selectedLines;
     }
@@ -80,8 +116,8 @@ class LineInfoMaker implements ILineInfoMaker {
 
 export {
     UriResolverFactory,
-    IUriResolver,
-
     LineInfoMakerFactory,
+
+    IUriResolver,
     ILineInfoMaker
 };
