@@ -2,11 +2,11 @@
 
 This extension provides the ability to copy a file's path and line number in the explorer、tab title and editor context.
 It supports custom file path separator, range connector and selection separator.
-It also supports Chinese and English.
+It also supports Chinese and English(need reload window to active the effect after installing this extension).
 
 ## Usages
 
-### Copy Path With Custom Path Separatorf
+### Copy Path With Custom Path Separator
 
 ![explorer-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/explorer-context.gif)
 
