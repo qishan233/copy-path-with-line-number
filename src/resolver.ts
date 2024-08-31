@@ -15,8 +15,6 @@ class RelativeUriResolver implements IUriResolver {
         this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
     }
     GetPath(uri: Uri): string {
-        console.log("相对路径信息：" + workspace.asRelativePath(uri.fsPath));
-
         return workspace.asRelativePath(uri.fsPath).replace(/\//g, this.pathSeparatorStrategy.GetSymbol());
     }
 }
@@ -30,8 +28,6 @@ class AbsoluteUriResolver implements IUriResolver {
         var content = uri.fsPath;
 
         var targetSep = this.pathSeparatorStrategy.GetSymbol();
-
-        console.log("绝对路径信息：" + uri.fsPath);
 
         content = content.replace(new RegExp(path.sep.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), targetSep);
 
