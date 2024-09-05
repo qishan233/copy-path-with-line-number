@@ -28,6 +28,10 @@ It also supports Chinese and English(need reload window to active the effect aft
 
 ## Release Notes
 
+### 0.0.5
+
+Fixed an issue that showing an error when commands called through the Command Palette or shortcut keys.
+
 ### 0.0.4
 
 Fixed an issue that configuration was not used when copying absolute path.
