@@ -2,7 +2,14 @@ import { Uri, window, workspace, env } from 'vscode';
 import { UriResolverFactory, LineInfoMakerFactory, IUriResolver, ILineInfoMaker } from './resolver';
 
 function DoCopy(command: CopyCommandType, uri: Uri) {
-    var content = GetContent(command, uri);
+
+    try {
+        var content = GetContent(command, uri);
+    } catch (error: any) {
+        window.showErrorMessage(error.message);
+        return;
+    }
+
 
     Copy(content);
 

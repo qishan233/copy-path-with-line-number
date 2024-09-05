@@ -2,6 +2,12 @@
 
 All notable changes to the "copy-path-with-line-number" extension will be documented in this file.
 
+## [0.0.5] - 2024-09-05
+
+### Fixed
+
+- Fixed an issue that showing an error when commands called through the Command Palette or shortcut keys.
+
 ## [0.0.4] - 2024-08-04
 
 ### Fixed

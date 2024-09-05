@@ -9,23 +9,42 @@ interface IUriResolver {
     GetPath(uri: Uri): string;
 }
 
-class RelativeUriResolver implements IUriResolver {
-    pathSeparatorStrategy: ISymbolStrategy;
-    constructor() {
-        this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
-    }
+class UriResolver implements IUriResolver {
     GetPath(uri: Uri): string {
-        return workspace.asRelativePath(uri.fsPath).replace(/\//g, this.pathSeparatorStrategy.GetSymbol());
+        if (uri === undefined) {
+            if (window.activeTextEditor) {
+                uri = window.activeTextEditor.document.uri;
+            } else {
+                throw new Error("Cannot copy path without an active editor or uri");
+            }
+        }
+
+        return uri.fsPath;
     }
 }
 
-class AbsoluteUriResolver implements IUriResolver {
+
+class RelativeUriResolver extends UriResolver implements IUriResolver {
     pathSeparatorStrategy: ISymbolStrategy;
     constructor() {
+        super();
         this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
     }
     GetPath(uri: Uri): string {
-        var content = uri.fsPath;
+        var p = super.GetPath(uri);
+
+        return workspace.asRelativePath(p).replace(/\//g, this.pathSeparatorStrategy.GetSymbol());
+    }
+}
+
+class AbsoluteUriResolver extends UriResolver implements IUriResolver {
+    pathSeparatorStrategy: ISymbolStrategy;
+    constructor() {
+        super();
+        this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
+    }
+    GetPath(uri: Uri): string {
+        var content = super.GetPath(uri);
 
         var targetSep = this.pathSeparatorStrategy.GetSymbol();
 

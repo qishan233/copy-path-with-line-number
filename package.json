@@ -2,7 +2,7 @@
   "name": "copy-path-with-line-number",
   "displayName": "copy-path-with-line-number",
   "description": "copy absolute or relative path with current line number or selected lines range info in editor context",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "icon": "images/icon.png",
   "publisher": "qishan233",
   "license": "SEE LICENSE IN LICENSE.md",
