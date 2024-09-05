@@ -1,7 +1,9 @@
 # copy-path-with-line-number
 
 This extension provides the ability to copy a file's path and line number in the explorer、tab title and editor context.
+
 It supports custom file path separator, range connector and selection separator.
+
 It also supports Chinese and English(need reload window to active the effect after installing this extension).
 
 ## Usages
