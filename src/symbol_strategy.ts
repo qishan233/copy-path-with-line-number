@@ -6,7 +6,7 @@ import { DefaultRangeConnector, DefaultRangeSeparator, DefaultPathSeparator } fr
 export {
     ISymbolStrategy,
     ISymbolStrategyFactory,
-    GetSymbolStrategy,
+    GetSymbolStrategyFactory,
 };
 
 interface ISymbolStrategy {
@@ -141,6 +141,6 @@ const cf = new ConfigurableSymbolStrategyFactory();
 // default factory
 const df = new DefaultSymbolStrategyFactory();
 
-function GetSymbolStrategy(): ISymbolStrategyFactory {
+function GetSymbolStrategyFactory(): ISymbolStrategyFactory {
     return cf;
 }

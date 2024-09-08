@@ -1,7 +1,7 @@
 import { Uri, window, workspace } from "vscode";
 import {
     ISymbolStrategy,
-    GetSymbolStrategy,
+    GetSymbolStrategyFactory,
 } from './symbol_strategy';
 import path from "path";
 
@@ -27,12 +27,13 @@ class UriResolver implements IUriResolver {
     }
 }
 
+const symbolStrategyFactory = GetSymbolStrategyFactory();
 
 class RelativeUriResolver implements UriResolverDecorator {
     pathSeparatorStrategy: ISymbolStrategy;
     uriResolver: IUriResolver;
     constructor(UriResolver: IUriResolver) {
-        this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
+        this.pathSeparatorStrategy = symbolStrategyFactory.GetPathSeparatorStrategy();
         this.uriResolver = UriResolver;
     }
     GetPath(uri: Uri): string {
@@ -47,7 +48,7 @@ class AbsoluteUriResolver implements UriResolverDecorator {
     uriResolver: IUriResolver;
     constructor(UriResolver: IUriResolver) {
         this.uriResolver = UriResolver;
-        this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
+        this.pathSeparatorStrategy = symbolStrategyFactory.GetPathSeparatorStrategy();
     }
     GetPath(uri: Uri): string {
         var content = this.uriResolver.GetPath(uri);
@@ -96,8 +97,8 @@ class LineInfoMaker implements ILineInfoMaker {
     rangeSeparatorStrategy: ISymbolStrategy;
 
     constructor() {
-        this.rangeConnectorStrategy = GetSymbolStrategy().GetRangeConnectorStrategy();
-        this.rangeSeparatorStrategy = GetSymbolStrategy().GetRangeSeparatorStrategy();
+        this.rangeConnectorStrategy = symbolStrategyFactory.GetRangeConnectorStrategy();
+        this.rangeSeparatorStrategy = symbolStrategyFactory.GetRangeSeparatorStrategy();
 
     }
 
