@@ -1,10 +1,10 @@
 import { Uri, window, workspace, env } from 'vscode';
-import { UriResolverFactory, LineInfoMakerFactory, IUriResolver, ILineInfoMaker } from './resolver';
+import { UriResolverFactory, LineInfoMakerFactory, IUriResolver, ILineInfoMaker } from './resolver_decorator';
 
 function DoCopy(command: CopyCommandType, uri: Uri) {
 
     try {
-        var content = GetContent(command, uri);
+        var content = GetCopyContent(command, uri);
     } catch (error: any) {
         window.showErrorMessage(error.message);
         return;
@@ -40,7 +40,7 @@ enum CopyCommandType {
     CopyAbsolutePathWithLine,
 }
 
-class ConcreteContentResolver implements ContentResolver {
+class ConcreteCopyCommand implements Command {
     uriResolver: IUriResolver;
     lineInfoMaker: ILineInfoMaker | null;
 
@@ -54,7 +54,7 @@ class ConcreteContentResolver implements ContentResolver {
         }
     }
 
-    Resolve(uri: Uri): string {
+    Execute(uri: Uri): string {
         var res = this.uriResolver.GetPath(uri);
 
         if (this.lineInfoMaker !== null) {
@@ -65,29 +65,28 @@ class ConcreteContentResolver implements ContentResolver {
     }
 }
 
-const CommandContainer = new Map<CopyCommandType, ContentResolver>([
-    [CopyCommandType.CopyRelativePath, new ConcreteContentResolver(false, false)],
-    [CopyCommandType.CopyAbsolutePath, new ConcreteContentResolver(true, false)],
-    [CopyCommandType.CopyAbsolutePathWithLine, new ConcreteContentResolver(true, true)],
-    [CopyCommandType.CopyRelativePathWithLine, new ConcreteContentResolver(false, true)],
+const CommandContainer = new Map<CopyCommandType, Command>([
+    [CopyCommandType.CopyRelativePath, new ConcreteCopyCommand(false, false)],
+    [CopyCommandType.CopyAbsolutePath, new ConcreteCopyCommand(true, false)],
+    [CopyCommandType.CopyAbsolutePathWithLine, new ConcreteCopyCommand(true, true)],
+    [CopyCommandType.CopyRelativePathWithLine, new ConcreteCopyCommand(false, true)],
 ]);
 
 
-function GetContent(commandType: CopyCommandType, uri: Uri): string {
+function GetCopyContent(commandType: CopyCommandType, uri: Uri): string {
     var command = CommandContainer.get(commandType);
     if (command === undefined) {
         return "not supported command";
     }
 
-    return command.Resolve(uri);
+    return command.Execute(uri);
 }
 
-interface ContentResolver {
-    Resolve(uri: Uri): string;
+interface Command {
+    Execute(uri: Uri): string;
 }
 
 
 export {
-    GetContent,
     CopyCommandType
 };

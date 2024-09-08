@@ -9,6 +9,10 @@ interface IUriResolver {
     GetPath(uri: Uri): string;
 }
 
+interface UriResolverDecorator extends IUriResolver {
+}
+
+
 class UriResolver implements IUriResolver {
     GetPath(uri: Uri): string {
         if (uri === undefined) {
@@ -24,27 +28,29 @@ class UriResolver implements IUriResolver {
 }
 
 
-class RelativeUriResolver extends UriResolver implements IUriResolver {
+class RelativeUriResolver implements UriResolverDecorator {
     pathSeparatorStrategy: ISymbolStrategy;
-    constructor() {
-        super();
+    uriResolver: IUriResolver;
+    constructor(UriResolver: IUriResolver) {
         this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
+        this.uriResolver = UriResolver;
     }
     GetPath(uri: Uri): string {
-        var p = super.GetPath(uri);
+        var p = this.uriResolver.GetPath(uri);
 
         return workspace.asRelativePath(p).replace(/\//g, this.pathSeparatorStrategy.GetSymbol());
     }
 }
 
-class AbsoluteUriResolver extends UriResolver implements IUriResolver {
+class AbsoluteUriResolver implements UriResolverDecorator {
     pathSeparatorStrategy: ISymbolStrategy;
-    constructor() {
-        super();
+    uriResolver: IUriResolver;
+    constructor(UriResolver: IUriResolver) {
+        this.uriResolver = UriResolver;
         this.pathSeparatorStrategy = GetSymbolStrategy().GetPathSeparatorStrategy();
     }
     GetPath(uri: Uri): string {
-        var content = super.GetPath(uri);
+        var content = this.uriResolver.GetPath(uri);
 
         var targetSep = this.pathSeparatorStrategy.GetSymbol();
 
@@ -54,9 +60,14 @@ class AbsoluteUriResolver extends UriResolver implements IUriResolver {
     }
 }
 
+const uriResolver = new UriResolver();
+const relativeUriResolver = new RelativeUriResolver(uriResolver);
+const absoluteUriResolver = new AbsoluteUriResolver(uriResolver);
+
+
 class UriResolverFactory {
     static CreateUriResolver(isAbsolute: boolean): IUriResolver {
-        return isAbsolute ? new AbsoluteUriResolver() : new RelativeUriResolver();
+        return isAbsolute ? absoluteUriResolver : relativeUriResolver;
     }
 }
 
