@@ -177,7 +177,8 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "clean": "rm -rf out"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.7",
@@ -189,5 +190,8 @@
     "@vscode/test-electron": "^2.4.0",
     "eslint": "^8.57.0",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "source-map-support": "^0.5.21"
   }
 }

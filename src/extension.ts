@@ -1,8 +1,10 @@
 import * as vscode from 'vscode';
 import { DoCopy, CopyCommandType } from './facade';
 
+require('source-map-support').install();
+
 export function activate(context: vscode.ExtensionContext) {
-	const relativePath = vscode.commands.registerCommand('qishan233.copy.relative.path', (uri) => {
+	const relativePath = vscode.commands.registerCommand('qishan233.copy.relative.path', async (uri) => {
 		DoCopy(CopyCommandType.CopyRelativePath, uri);
 	});
 

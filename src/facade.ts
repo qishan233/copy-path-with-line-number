@@ -1,15 +1,14 @@
 import { Uri, window, workspace, env } from 'vscode';
 import { UriResolverFactory, LineInfoMakerFactory, IUriResolver, ILineInfoMaker } from './resolver_decorator';
 
-function DoCopy(command: CopyCommandType, uri: Uri) {
+async function DoCopy(command: CopyCommandType, uri: Uri) {
 
     try {
-        var content = GetCopyContent(command, uri);
+        var content = await GetCopyContent(command, uri);
     } catch (error: any) {
         window.showErrorMessage(error.message);
         return;
     }
-
 
     Copy(content);
 
@@ -43,9 +42,11 @@ enum CopyCommandType {
 class ConcreteCopyCommand implements Command {
     uriResolver: IUriResolver;
     lineInfoMaker: ILineInfoMaker | null;
+    needLineInfo: boolean;
 
     constructor(absolutePath: boolean, needLineInfo: boolean) {
         this.uriResolver = UriResolverFactory.CreateUriResolver(absolutePath);
+        this.needLineInfo = needLineInfo;
 
         if (needLineInfo) {
             this.lineInfoMaker = LineInfoMakerFactory.CreateLineInfoMaker();
@@ -54,14 +55,24 @@ class ConcreteCopyCommand implements Command {
         }
     }
 
-    Execute(uri: Uri): string {
-        var res = this.uriResolver.GetPath(uri);
-
-        if (this.lineInfoMaker !== null) {
+    async Execute(uri: Uri): Promise<string> {
+        if (this.needLineInfo && this.lineInfoMaker !== null) {
+            let res = this.getPath(uri);
             res += ":" + this.lineInfoMaker.GetLineInfo();
+            return res;
         }
 
-        return res;
+        return this.getPaths(uri);
+    }
+
+    getPath(uri: Uri): string {
+        return this.uriResolver.GetPath(uri);
+    }
+
+    async getPaths(uri: Uri): Promise<string> {
+        var res = await this.uriResolver.GetPaths(uri);
+
+        return res.join('\n');
     }
 }
 
@@ -73,17 +84,18 @@ const CommandContainer = new Map<CopyCommandType, Command>([
 ]);
 
 
-function GetCopyContent(commandType: CopyCommandType, uri: Uri): string {
+async function GetCopyContent(commandType: CopyCommandType, uri: Uri): Promise<string> {
     var command = CommandContainer.get(commandType);
     if (command === undefined) {
         return "not supported command";
     }
 
-    return command.Execute(uri);
+    var res = await command.Execute(uri);
+    return res;
 }
 
 interface Command {
-    Execute(uri: Uri): string;
+    Execute(uri: Uri): Promise<string>;
 }
 
 

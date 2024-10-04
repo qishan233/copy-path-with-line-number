@@ -1,4 +1,4 @@
-import { Uri, window, workspace } from "vscode";
+import { Uri, window, workspace, commands, env } from "vscode";
 import {
     ISymbolStrategy,
     GetSymbolStrategyFactory,
@@ -7,6 +7,7 @@ import path from "path";
 
 interface IUriResolver {
     GetPath(uri: Uri): string;
+    GetPaths(uri: Uri): Promise<string[]>;
 }
 
 interface UriResolverDecorator extends IUriResolver {
@@ -25,6 +26,17 @@ class UriResolver implements IUriResolver {
 
         return uri.fsPath;
     }
+    async GetPaths(uri: Uri): Promise<string[]> {
+        await env.clipboard.writeText('');
+
+        await commands.executeCommand("copyFilePath", uri);
+
+        const content = await env.clipboard.readText();
+
+        await env.clipboard.writeText('');
+
+        return content.split('\n');
+    }
 }
 
 const symbolStrategyFactory = GetSymbolStrategyFactory();
@@ -40,6 +52,10 @@ class RelativeUriResolver implements UriResolverDecorator {
         var p = this.uriResolver.GetPath(uri);
 
         return workspace.asRelativePath(p).replace(/\//g, this.pathSeparatorStrategy.GetSymbol());
+    }
+    async GetPaths(uri: Uri): Promise<string[]> {
+        var paths = await this.uriResolver.GetPaths(uri);
+        return paths.map(p => workspace.asRelativePath(p).replace(/\//g, this.pathSeparatorStrategy.GetSymbol()));
     }
 }
 
@@ -58,6 +74,11 @@ class AbsoluteUriResolver implements UriResolverDecorator {
         content = content.replace(new RegExp(path.sep.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), targetSep);
 
         return content;
+    }
+    async GetPaths(uri: Uri): Promise<string[]> {
+        var paths = await this.uriResolver.GetPaths(uri);
+        var targetSep = this.pathSeparatorStrategy.GetSymbol();
+        return paths.map(p => p.replace(new RegExp(path.sep.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), targetSep));
     }
 }
 
