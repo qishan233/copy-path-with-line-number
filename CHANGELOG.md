@@ -2,6 +2,12 @@
 
 All notable changes to the "copy-path-with-line-number" extension will be documented in this file.
 
+## [0.0.6] - 2024-10-04
+
+### Added
+
+- Add the ability of copying multiple files path in explore context and editor title context.
+
 ## [0.0.5] - 2024-09-05
 
 ### Fixed

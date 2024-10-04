@@ -1,6 +1,8 @@
 # copy-path-with-line-number
 
-This extension provides the ability to copy a file's path and line number in the explorer、tab title and editor context.
+[中文介绍](https://github.com/qishan233/copy-path-with-line-number/blob/main/README_ZH.md)
+
+This extension provides the ability to copy files' path and line number in the explorer、tab title and editor context.
 
 It supports custom file path separator, range connector and selection separator.
 
@@ -26,9 +28,17 @@ It also supports Chinese and English(need reload window to active the effect aft
 
 ![settings](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/settings.gif)
 
+### Copy Multiple File Paths
+
+![copy multiple file paths](https://raw.githubusercontent.com/qishan233/images/main/design-pattern/copy%20multiple%20file%20path.gif)
+
 **Enjoy!**
 
 ## Release Notes
+
+### 0.0.6
+
+Add the ability of copying multiple files path in explore context and editor title context.
 
 ### 0.0.5
 
