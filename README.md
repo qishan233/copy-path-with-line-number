@@ -38,7 +38,7 @@ It also supports Chinese and English(need reload window to active the effect aft
 
 ### 0.0.7
 
-Remove gif images from repository to reduce this size of this extension and update the README.md
+Remove gif images from repository to reduce this size of this extension.
 
 ### 0.0.6
 

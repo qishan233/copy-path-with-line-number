@@ -2,6 +2,10 @@
 
 All notable changes to the "copy-path-with-line-number" extension will be documented in this file.
 
+## [0.0.7] - 2025-01-28
+
+- Remove gif images from repository to reduce this size of this extension.
+
 ## [0.0.6] - 2024-10-04
 
 ### Added
