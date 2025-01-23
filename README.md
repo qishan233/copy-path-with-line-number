@@ -12,21 +12,21 @@ It also supports Chinese and English(need reload window to active the effect aft
 
 ### Copy Path With Custom Path Separator
 
-![explorer-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/explorer-context.gif)
+![explorer-context](https://raw.githubusercontent.com/qishan233/images/main/vscode-extension/explorer-context.gif)
 
-![title-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/title-context.gif)
+![title-context](https://raw.githubusercontent.com/qishan233/images/main/vscode-extension/title-context.gif)
 
 ### Copy Path With Line Number
 
-![editor-context](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/editor-context.gif)
+![editor-context](https://raw.githubusercontent.com/qishan233/images/main/vscode-extension/editor-context.gif)
 
 ### Copy Selected Lines Range Info
 
-![selected lines range](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/selected-lines-info.gif)
+![selected lines range](https://raw.githubusercontent.com/qishan233/images/main/vscode-extension/selected-lines-info.gif)
 
 ### Settings
 
-![settings](https://raw.githubusercontent.com/qishan233/copy-path-with-line-number/main/images/settings.gif)
+![settings](https://raw.githubusercontent.com/qishan233/images/main/vscode-extension/settings.gif)
 
 ### Copy Multiple File Paths
 
@@ -35,6 +35,10 @@ It also supports Chinese and English(need reload window to active the effect aft
 **Enjoy!**
 
 ## Release Notes
+
+### 0.0.7
+
+Remove gif images from repository to reduce this size of this extension and update the README.md
 
 ### 0.0.6
 
